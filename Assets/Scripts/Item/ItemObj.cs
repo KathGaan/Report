@@ -18,7 +18,12 @@ public class Item
     public string description;
 }
 
-public interface IPotion 
+public interface IUse
 {
-    public void PotionEffect();
+    public void UseEffect();
+}
+
+public interface IOnHit
+{
+    public void OnHitEffect();
 }

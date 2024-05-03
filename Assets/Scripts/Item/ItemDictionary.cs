@@ -32,12 +32,10 @@ public class ItemDictionary
         }
     }
 
-    public ItemObj GetItemObj(int code , out ItemObj itemObj)
+    public ItemObj GetItemObj(int code)
     {
-        if (itemScripts.TryGetValue(code, out itemObj))
-            return null;
-
-        AddItemScript(code);
+        if (!itemScripts.ContainsKey(code))
+            AddItemScript(code);
 
         return itemScripts.GetValueOrDefault(code);
     }

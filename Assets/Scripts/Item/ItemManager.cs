@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemManager : MonoSingletonManager<ItemManager>
+public class ItemManager : SingletonManager<ItemManager>
 {
     private ItemDictionary itemDictionary;
 
     private Dictionary<int, Item> items;
 
-    private void Start()
+    public ItemManager()
     {
         itemDictionary = new ItemDictionary();
 
@@ -25,15 +25,23 @@ public class ItemManager : MonoSingletonManager<ItemManager>
         }
     }
 
+    public Item GetItem(int code)
+    {
+        return items[code];
+    }
+
+    public void SetEquip(Item item)
+    {
+        EquipItem.equipItemScript = itemDictionary.GetItemObj(item.code);
+    }
+
     public void ActiveItem(int code)
     {
-        ItemObj activeObj = itemDictionary.GetItemObj(code, out activeObj);
-
-        var function = activeObj as IPotion;
+        var function = itemDictionary.GetItemObj(code) as IUse;
 
         if(function != null)
         {
-            function.PotionEffect();
+            function.UseEffect();
         }
 
 
