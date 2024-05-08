@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item_0 : ItemObj, IUse
+public class FireBall : ConsumeItem, IConsumeSpell
 {
-    public void UseEffect()
+    public void SpellEffect()
     {
         Debug.Log("FireBall을 발사했습니다.");
     }

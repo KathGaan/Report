@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item_1 : ItemObj, IOnHit
+public class Protect : EquipItem, IEquipOnHit
 {
     public void OnHitEffect()
     {

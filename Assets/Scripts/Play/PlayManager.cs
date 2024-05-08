@@ -5,18 +5,21 @@ using UnityEngine.UI;
 
 public class PlayManager : MonoSingletonManager<PlayManager>
 {
-    private EquipItem equipItem;
+    public static Item equipItemScript;
 
     [SerializeField] Image image;
 
-    private void Start()
+    [SerializeField] List<QuickSlotUi> quickSlotUis;
+
+    public void SetQuickSlot(int code , int slotNum)
     {
-        equipItem = new EquipItem();   
+        QuickSlot.slotItems[slotNum] = ItemManager.Instance.GetItemScript(code);
+        quickSlotUis[slotNum].SetSlotImage(code);
     }
 
     public void ClearEquip()
     {
-        EquipItem.equipItemScript = null;
+        equipItemScript = null;
         image.sprite = null;
     }
 
@@ -24,13 +27,24 @@ public class PlayManager : MonoSingletonManager<PlayManager>
     {
         Debug.Log("Protect를 장착 했습니다.");
 
-        ItemManager.Instance.SetEquip(ItemManager.Instance.GetItem(1));
+        ItemManager.Instance.SetEquip(1);
 
-        image.sprite = ResourcesManager.Instance.Load<Sprite>(ItemManager.Instance.GetItem(1).name);
+        image.sprite = ResourcesManager.Instance.Load<Sprite>(ItemManager.Instance.GetItemInfo(1).name);
     }
 
     public void TestHit()
     {
-        equipItem.OnHit();
+        OnHit();
+    }
+
+    public void OnHit()
+    {
+        if (equipItemScript == null)
+            return;
+
+        var function = equipItemScript as IEquipOnHit;
+
+        if (function != null)
+            function.OnHitEffect();
     }
 }

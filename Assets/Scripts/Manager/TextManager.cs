@@ -17,18 +17,6 @@ public class TextManager : SingletonManager<TextManager>
         return preLoadCSV.GetValueOrDefault(FileName)[LoadIndex][loadType].ToString();
     }
 
-    public Item LoadItem(int code)
-    {
-        Item saveItem = new Item();
-
-        saveItem.code = code;
-        saveItem.name = LoadString("ItemData", code, "Name");
-        saveItem.type = LoadString("ItemData", code, "Type");
-        saveItem.description = LoadString("ItemData", code, "Description");
-
-        return saveItem;
-    }
-
     public int GetCSVLength(string FileName)
     {
         if (!preLoadCSV.ContainsKey(FileName))

@@ -5,9 +5,7 @@ using UnityEngine.UI;
 
 public class QuickSlot : MonoBehaviour
 {
-    [SerializeField] List<Image> itemImage;
-
-    private List<Item> slotItems;
+    public static List<Item> slotItems;
 
     private void Awake()
     {
@@ -16,8 +14,7 @@ public class QuickSlot : MonoBehaviour
 
     private void Start()
     {
-        //Test
-        SetSlotItem(0, 0);
+        PlayManager.Instance.SetQuickSlot(0,0);
 
         InputManager.Instance.keyDownAction += KeyDownAction;
     }
@@ -26,19 +23,6 @@ public class QuickSlot : MonoBehaviour
     {
         InputManager.Instance.keyDownAction -= KeyDownAction;
     }
-
-    public void SetSlotItem(int code, int slotNum)
-    {
-        slotItems[slotNum] = ItemManager.Instance.GetItem(code);
-        itemImage[slotNum].sprite = ResourcesManager.Instance.Load<Sprite>(slotItems[slotNum].name);
-    }
-
-    public void SetSlotItem(Item item, int slotNum)
-    {
-        slotItems[slotNum] = item;
-        itemImage[slotNum].sprite = ResourcesManager.Instance.Load<Sprite>(slotItems[slotNum].name);
-    }
-
 
     public void KeyDownAction()
     {

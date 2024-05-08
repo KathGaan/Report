@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//Monobehaviour Singleton
 public class MonoSingletonManager<T> : MonoBehaviour where T : MonoBehaviour
 {
     public static T Instance
@@ -24,7 +23,6 @@ public class MonoSingletonManager<T> : MonoBehaviour where T : MonoBehaviour
     }
 }
 
-//Common Singleton
 public class SingletonManager<T> where T : new()
 {
     private static T instance;
