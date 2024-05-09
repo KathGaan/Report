@@ -28,7 +28,7 @@ public class ItemManager : SingletonManager<ItemManager>
         }
     }
 
-    public Item LoadItem(int code)
+    private Item LoadItem(int code)
     {
         Item saveItem = new Item();
 
@@ -53,6 +53,8 @@ public class ItemManager : SingletonManager<ItemManager>
                 if (type.Name == items[code].name)
                 {
                     itemScripts.Add(code, (Item)Activator.CreateInstance(type));
+
+                    itemScripts[code].code = code;
                 }
             }
         }
@@ -71,9 +73,14 @@ public class ItemManager : SingletonManager<ItemManager>
         return items[code];
     }
 
-    public void SetEquip(int code)
+    public EquipItem SetEquip(int code)
     {
-        PlayManager.equipItemScript = GetItemScript(code);
+        return GetItemScript(code) as EquipItem;
+    }
+
+    public WeaponItem SetWeapon(int code)
+    {
+        return GetItemScript(code) as WeaponItem;
     }
 
 

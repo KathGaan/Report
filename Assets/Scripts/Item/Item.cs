@@ -24,6 +24,11 @@ public abstract class EquipItem : Item
 
 }
 
+public abstract class WeaponItem : Item
+{
+
+}
+
 public interface IConsumeSpell
 {
     public void SpellEffect();
@@ -32,4 +37,19 @@ public interface IConsumeSpell
 public interface IEquipOnHit
 {
     public void OnHitEffect();
+}
+
+public interface IItemTrap
+{
+    public void TrapEffect();
+}
+
+public interface IWeaponAttack
+{
+    public void AttackEffect();
+}
+
+public interface IWeaponSkill
+{
+    public void SkillEffect();
 }

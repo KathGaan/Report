@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class QuickSlot : MonoBehaviour
 {
-    public static List<Item> slotItems;
+    public static List<ConsumeItem> slotItems;
 
     private void Awake()
     {
-        slotItems = new List<Item>() {null,null,null };
+        slotItems = new List<ConsumeItem>() {null,null,null };
     }
 
     private void Start()
