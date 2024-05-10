@@ -19,10 +19,7 @@ public class WeaponManager : MonoBehaviour
         if (PlayManager.weaponScript == null)
             return;
 
-        var function = PlayManager.weaponScript as IWeaponAttack;
-
-        if (function != null)
-            function.AttackEffect();
+        PlayManager.weaponScript.AttackEffect();
     }
 
     private void OnSkill()

@@ -13,19 +13,32 @@ public class Item
     public string description;
 }
 
-public abstract class ConsumeItem : Item
+public class ConsumeItem : Item
 {
-
+    public int count;
 }
 
-public abstract class EquipItem : Item
+public class EquipItem : Item
 {
+    public float defense;
+    
+    protected EquipItem()
+    {
+        SetDefault();
+    }
 
+    protected virtual void SetDefault()
+    {
+        defense = 0;
+    }
 }
 
-public abstract class WeaponItem : Item
+public class WeaponItem : Item
 {
-
+    public virtual void AttackEffect()
+    {
+        Debug.Log("기본 공격을 했습니다.");
+    }
 }
 
 public interface IConsumeSpell
@@ -41,11 +54,6 @@ public interface IEquipOnHit
 public interface IItemTrap
 {
     public void TrapEffect();
-}
-
-public interface IWeaponAttack
-{
-    public void AttackEffect();
 }
 
 public interface IWeaponSkill

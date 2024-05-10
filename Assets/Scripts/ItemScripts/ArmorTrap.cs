@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ArmorTrap : EquipItem, IEquipOnHit, IItemTrap
 {
+    protected override void SetDefault()
+    {
+        defense = -100;
+    }
+
     public void TrapEffect()
     {
         PlayManager.Instance.ClearEquip();

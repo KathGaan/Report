@@ -70,7 +70,7 @@ public class PlayManager : MonoSingletonManager<PlayManager>
         {
             item = ItemManager.Instance.GetItemInfo(equipItemScript.code);
 
-            Info.text = item.name + "\n" + item.type + "\n" + item.description + "\n\n";
+            Info.text = item.name + "\n" + item.type + "\n¹æ¾îµµ : " + equipItemScript.defense + "\n" + item.description + "\n\n";
         }
 
         if (weaponScript != null)
