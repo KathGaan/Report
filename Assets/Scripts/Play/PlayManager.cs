@@ -4,11 +4,20 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum Locate
+{
+    Inside,
+    Outside,
+    Rooftop
+}
+
 public class PlayManager : MonoSingletonManager<PlayManager>
 {
     public static EquipItem equipItemScript;
 
     public static WeaponItem weaponScript;
+
+    public static Locate playerLocate;
 
     [SerializeField] List<QuickSlotUi> quickSlotUis;
 
@@ -59,6 +68,28 @@ public class PlayManager : MonoSingletonManager<PlayManager>
         if (function != null)
             function.OnHitEffect();
     }
+
+    public void MoveInside()
+    {
+        playerLocate = Locate.Inside;
+
+        Debug.Log("실내로 이동했습니다.");
+    }
+
+    public void MoveOutside()
+    {
+        playerLocate = Locate.Outside;
+
+        Debug.Log("실외로 이동했습니다.");
+    }
+
+    public void MoveRooftop()
+    {
+        playerLocate = Locate.Rooftop;
+
+        Debug.Log("옥상으로 이동했습니다.");
+    }
+
 
     public void ItemInfo()
     {

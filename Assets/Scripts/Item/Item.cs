@@ -16,6 +16,11 @@ public class Item
 public class ConsumeItem : Item
 {
     public int count;
+
+    public virtual void UseEffect()
+    {
+        count--;
+    }
 }
 
 public class EquipItem : Item
@@ -39,11 +44,6 @@ public class WeaponItem : Item
     {
         Debug.Log("기본 공격을 했습니다.");
     }
-}
-
-public interface IConsumeSpell
-{
-    public void SpellEffect();
 }
 
 public interface IEquipOnHit

@@ -86,11 +86,11 @@ public class ItemManager : SingletonManager<ItemManager>
 
     public void ActiveItem(int code)
     {
-        var function = GetItemScript(code) as IConsumeSpell;
+        var function = GetItemScript(code) as ConsumeItem;
 
         if(function != null)
         {
-            function.SpellEffect();
+            function.UseEffect();
         }
 
 
