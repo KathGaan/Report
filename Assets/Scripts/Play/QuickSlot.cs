@@ -14,9 +14,6 @@ public class QuickSlot : MonoBehaviour
 
     private void Start()
     {
-        PlayManager.Instance.SetQuickSlot(0,0);
-        PlayManager.Instance.SetQuickSlot(4,1);
-
         InputManager.Instance.keyDownAction += KeyDownAction;
     }
 
