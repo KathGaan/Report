@@ -7,9 +7,11 @@ public class InputManager : MonoSingletonManager<InputManager>
 {
     public Action keyDownAction;
 
+    public bool SettingOpened;
+
     private void Update()
     {
-        if (Time.timeScale <= 0f) return;
+        if (Time.timeScale <= 0f && !SettingOpened) return;
 
         if (Input.anyKeyDown)
         {

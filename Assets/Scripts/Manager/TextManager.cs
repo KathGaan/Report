@@ -16,6 +16,15 @@ public class TextManager : SingletonManager<TextManager>
 
         return preLoadCSV.GetValueOrDefault(FileName)[LoadIndex][loadType].ToString();
     }
+    public string LoadString(string FileName, int LoadIndex)
+    {
+        if (!preLoadCSV.ContainsKey(FileName))
+        {
+            preLoadCSV.Add(FileName, ResourcesManager.Instance.Read(FileName));
+        }
+
+        return preLoadCSV.GetValueOrDefault(FileName)[LoadIndex][DataManager.Instance.Data.Language].ToString();
+    }
 
     public int GetCSVLength(string FileName)
     {
