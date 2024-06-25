@@ -17,6 +17,8 @@ public class Slot : MonoBehaviour, IDropHandler
 
     public virtual bool Task()
     {
+        if (transform.childCount > 0)
+            return false;
         return true;
     }
 }

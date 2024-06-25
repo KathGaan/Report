@@ -86,14 +86,22 @@ public class ItemManager : SingletonManager<ItemManager>
 
     public void ActiveItem(int code)
     {
-        var function = GetItemScript(code) as ConsumeItem;
-
-        if(function != null)
         {
-            function.UseEffect();
+            var function = GetItemScript(code) as ConsumeItem;
+
+            if (function != null)
+            {
+                function.UseEffect();
+            }
         }
 
+        {
+            var function = GetItemScript(code) as WeaponItem;
 
-        //...
+            if (function != null)
+            {
+                function.AttackEffect();
+            }
+        }
     }
 }

@@ -5,13 +5,17 @@ using UnityEngine.UI;
 
 public class QuickSlotUi : Slot
 {
-    [SerializeField] Image image;
-
     [SerializeField] int slotNum;
 
     public void SetSlotImage(int code)
     {
-        image.sprite = ResourcesManager.Instance.Load<Sprite>(ItemManager.Instance.GetItemInfo(code).name);
+        gameObject.GetComponent<Image>().sprite = ResourcesManager.Instance.Load<Sprite>(ItemManager.Instance.GetItemInfo(code).name);
+    }
+
+    public void SetQuickSlot(int code)
+    {
+        QuickSlot.slotItems[slotNum] = ItemManager.Instance.GetItemScript(code);
+        SetSlotImage(code);
     }
 
     public override bool Task()
@@ -23,7 +27,7 @@ public class QuickSlotUi : Slot
         if (task == null)
             return false;
 
-        PlayManager.Instance.SetQuickSlot(i, slotNum);
+        SetQuickSlot(i);
 
         return true;
     }

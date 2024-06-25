@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DragObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DragObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler , IPointerEnterHandler
 {
     public static GameObject dragGameObject;
 
@@ -54,5 +54,10 @@ public class DragObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
             transform.localPosition = Vector2.zero;
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("아이템 이름 : " + ItemManager.Instance.GetItemInfo(itemCode).name);
     }
 }

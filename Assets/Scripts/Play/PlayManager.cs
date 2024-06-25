@@ -19,15 +19,8 @@ public class PlayManager : MonoSingletonManager<PlayManager>
 
     public static Locate playerLocate;
 
-    [SerializeField] List<QuickSlotUi> quickSlotUis;
-
     [SerializeField] TextMeshProUGUI Info;
 
-    public void SetQuickSlot(int code , int slotNum)
-    {
-        QuickSlot.slotItems[slotNum] = ItemManager.Instance.GetItemScript(code) as ConsumeItem;
-        quickSlotUis[slotNum].SetSlotImage(code);
-    }
 
     public void ClearEquip()
     {
