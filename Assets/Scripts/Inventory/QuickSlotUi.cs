@@ -9,6 +9,12 @@ public class QuickSlotUi : Slot
 
     public void SetSlotImage(int code)
     {
+        if (code < 0)
+        {
+            gameObject.GetComponent<Image>().sprite = null;
+            return;
+        }
+
         gameObject.GetComponent<Image>().sprite = ResourcesManager.Instance.Load<Sprite>(ItemManager.Instance.GetItemInfo(code).name);
     }
 
@@ -16,6 +22,12 @@ public class QuickSlotUi : Slot
     {
         QuickSlot.slotItems[slotNum] = ItemManager.Instance.GetItemScript(code);
         SetSlotImage(code);
+    }
+
+    public void ClearSlot()
+    {
+        QuickSlot.slotItems[slotNum] = null;
+        SetSlotImage(-1);
     }
 
     public override bool Task()

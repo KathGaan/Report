@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,32 +36,58 @@ public class QuickSlot : MonoBehaviour
 
     public void KeyDownAction()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        int i = 0;
+        do
         {
-            if (slotItems[0] == null)
-                return;
-            ItemManager.Instance.ActiveItem(slotItems[0].code);
-        }
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                if (slotItems[i] == null)
+                    return;
+                ItemManager.Instance.ActiveItem(slotItems[i].code);
+                break;
+            }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            if (slotItems[1] == null)
-                return;
-            ItemManager.Instance.ActiveItem(slotItems[1].code);
-        }
+            i++;
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            if (slotItems[2] == null)
-                return;
-            ItemManager.Instance.ActiveItem(slotItems[2].code);
-        }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                if (slotItems[i] == null)
+                    return;
+                ItemManager.Instance.ActiveItem(slotItems[i].code);
+                break;
+            }
 
-        if (Input.GetKeyDown(KeyCode.Alpha4))
+            i++;
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                if (slotItems[i] == null)
+                    return;
+                ItemManager.Instance.ActiveItem(slotItems[i].code);
+                break;
+            }
+
+            i++;
+
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                if (slotItems[i] == null)
+                    return;
+                ItemManager.Instance.ActiveItem(slotItems[i].code);
+                break;
+            }
+
+            return;
+        } while (false);
+
+        var task = slotItems[i] as ConsumeItem;
+
+        if(task != null)
         {
-            if (slotItems[3] == null)
-                return;
-            ItemManager.Instance.ActiveItem(slotItems[3].code);
+            if(task.count <= 0)
+            {
+                task.CountToZero(quickSlotUis[i]);
+            }
         }
     }
 

@@ -15,11 +15,16 @@ public class Item
 
 public class ConsumeItem : Item
 {
-    public int count;
+    public int count = 1;
 
     public virtual void UseEffect()
     {
         count--;
+    }
+
+    public void CountToZero(QuickSlotUi obj)
+    {
+        obj.ClearSlot();
     }
 }
 
