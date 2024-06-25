@@ -1,6 +1,6 @@
 Code,Name,Type,Description
-0,FireBall,사용 아이템,불을 발사합니다.
-1,Protect,장착 아이템,"피해를 입으면 그 피해를 무시하고 파괴됩니다."
-2,ArmorTrap,장착 아이템,"함정에 걸리면 자동적으로 착용됩니다.</n>피해를 입으면 파괴됩니다."
-3,TrapBreaker,무기 아이템,"스킬 : 장착되어 있는 아이템을 파괴합니다."
-4,Grenade,사용 아이템,폭발하는 수류탄을 던집니다.
+0,FireBall,Consume, 아이템,불을 발사합니다.
+1,Protect,Equip, 아이템,"피해를 입으면 그 피해를 무시하고 파괴됩니다."
+2,ArmorTrap,Equip, 아이템,"함정에 걸리면 자동적으로 착용됩니다.</n>피해를 입으면 파괴됩니다."
+3,TrapBreaker,Weapon, 아이템,"스킬 : 장착되어 있는 아이템을 파괴합니다."
+4,Grenade,Consume,폭발하는 수류탄을 던집니다.

@@ -49,7 +49,7 @@ public class InventoryManager : MonoBehaviour
             nameSort.Add(slots[i].GetComponentInChildren<DragObject>());
         }
 
-        QuickSort(ref nameSort, 0, nameSort.Count - 1);
+        QuickSort(nameSort, 0, nameSort.Count - 1);
 
         for(int i = 0; i < nameSort.Count; i++)
         {
@@ -58,12 +58,70 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void TypeSort()
+    {
+        List<DragObject> consume = new List<DragObject>();
+        List<DragObject> equip = new List<DragObject>();
+        List<DragObject> weapon = new List<DragObject>();
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].transform.childCount <= 0)
+                continue;
+
+            if (ItemManager.Instance.GetItemInfo(slots[i].GetComponentInChildren<DragObject>().ItemCode).type == ItemType.Consume.ToString())
+            {
+                consume.Add(slots[i].GetComponentInChildren<DragObject>());
+                continue;
+            }
+
+            if (ItemManager.Instance.GetItemInfo(slots[i].GetComponentInChildren<DragObject>().ItemCode).type == ItemType.Equip.ToString())
+            {
+                equip.Add(slots[i].GetComponentInChildren<DragObject>());
+                continue;
+            }
+
+            if (ItemManager.Instance.GetItemInfo(slots[i].GetComponentInChildren<DragObject>().ItemCode).type == ItemType.Weapon.ToString())
+            {
+                weapon.Add(slots[i].GetComponentInChildren<DragObject>());
+                continue;
+            }
+        }
+
+        QuickSort(consume, 0, consume.Count - 1);
+        QuickSort(equip, 0, equip.Count - 1);
+        QuickSort(weapon, 0, weapon.Count - 1);
+
+        List<DragObject> finish = new List<DragObject>();
+
+        for(int i = 0; i < consume.Count; i++)
+        {
+            finish.Add(consume[i]);
+        }
+
+        for (int i = 0; i < equip.Count; i++)
+        {
+            finish.Add(equip[i]);
+        }
+
+        for (int i = 0; i < weapon.Count; i++)
+        {
+            finish.Add(weapon[i]);
+        }
+
+        for (int i = 0; i < finish.Count; i++)
+        {
+            finish[i].transform.SetParent(slots[i].transform);
+            finish[i].transform.localPosition = Vector2.zero;
+        }
+    }
+
     private string GetName(int itemCode)
     {
         return ItemManager.Instance.GetItemInfo(itemCode).name;
     }
 
-    private void Swap(ref List<DragObject> list, int first, int second)
+    private void Swap(List<DragObject> list, int first, int second)
     {
         DragObject temp = list[first];
 
@@ -97,7 +155,7 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
-    private int Partition(ref List<DragObject> sort, int left, int right)
+    private int Partition(List<DragObject> sort, int left, int right)
     {
         string pivot = GetName(sort[left].ItemCode);
 
@@ -118,24 +176,24 @@ public class InventoryManager : MonoBehaviour
 
             if (low < high)
             {
-                Swap(ref sort, low, high);
+                Swap(sort, low, high);
             }
 
         } while (low < high);
 
-        Swap(ref sort, left, high);
+        Swap(sort, left, high);
 
         return high;
     }
 
-    private void QuickSort(ref List<DragObject> sort, int left, int right)
+    private void QuickSort(List<DragObject> sort, int left, int right)
     {
         if(left < right)
         {
-            int i = Partition(ref sort, left, right);
+            int i = Partition(sort, left, right);
 
-            QuickSort(ref sort, left, i - 1);
-            QuickSort(ref sort, i + 1, right);
+            QuickSort(sort, left, i - 1);
+            QuickSort(sort, i + 1, right);
         }
     }
 }

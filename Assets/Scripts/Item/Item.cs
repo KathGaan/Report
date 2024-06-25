@@ -60,3 +60,10 @@ public interface IWeaponSkill
 {
     public void SkillEffect();
 }
+
+public enum ItemType
+{
+    Consume,
+    Equip,
+    Weapon
+}
