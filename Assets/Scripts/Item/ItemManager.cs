@@ -96,6 +96,15 @@ public class ItemManager : SingletonManager<ItemManager>
         }
 
         {
+            var function = GetItemScript(code) as CoolDownItem;
+
+            if (function != null)
+            {
+                function.UseEffect();
+            }
+        }
+
+        {
             var function = GetItemScript(code) as WeaponItem;
 
             if (function != null)

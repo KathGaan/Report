@@ -4,3 +4,4 @@ Code,Name,Type,Description
 2,ArmorTrap,Equip, 아이템,"함정에 걸리면 자동적으로 착용됩니다.</n>피해를 입으면 파괴됩니다."
 3,TrapBreaker,Weapon, 아이템,"스킬 : 장착되어 있는 아이템을 파괴합니다."
 4,Grenade,Consume,폭발하는 수류탄을 던집니다.
+5,HealingPotion,CoolDown,"쿨타임 12초에 회복하는 물약"

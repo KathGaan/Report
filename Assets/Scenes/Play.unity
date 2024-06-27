@@ -2006,6 +2006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94bb88d754395244b32a2c71c62c159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grayShder: {fileID: 2100000, guid: 017a8c3d8e77ea94f886ec55a25d181d, type: 2}
 --- !u!4 &1507486747
 Transform:
   m_ObjectHideFlags: 0
@@ -3026,7 +3027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeadda13eb252f1488e1693c4f1a0397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startItemCode: 000000000300000004000000
+  startItemCode: 000000000300000005000000
   quickSlotUis:
   - {fileID: 368190924}
   - {fileID: 940315438}

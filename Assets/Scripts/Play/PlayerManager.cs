@@ -19,4 +19,11 @@ public class PlayerManager : MonoSingletonManager<PlayerManager>
         get { return inventory; }
         set { inventory = value; }
     }
+
+    [SerializeField] Material grayShder;
+
+    public Material GrayShader
+    {
+        get { return grayShder; }
+    }
 }

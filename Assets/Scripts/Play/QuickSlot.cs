@@ -80,13 +80,21 @@ public class QuickSlot : MonoBehaviour
             return;
         } while (false);
 
-        var task = slotItems[i] as ConsumeItem;
-
-        if(task != null)
         {
-            if(task.count <= 0)
+            var task = slotItems[i] as ConsumeItem;
+
+            if (task != null && task.usedSuccess)
             {
-                task.CountToZero(quickSlotUis[i]);
+                task.UsedSuccess(quickSlotUis[i]);
+            }
+        }
+
+        {
+            var task = slotItems[i] as CoolDownItem;
+
+            if (task != null && task.canUse)
+            {
+                task.UsedSuccess(quickSlotUis[i]);
             }
         }
     }

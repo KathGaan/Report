@@ -15,16 +15,46 @@ public class Item
 
 public class ConsumeItem : Item
 {
-    public int count = 1;
+    public bool usedSuccess;
 
     public virtual void UseEffect()
     {
-        count--;
+        usedSuccess = true;
     }
 
-    public void CountToZero(QuickSlotUi obj)
+    public void UsedSuccess(QuickSlotUi obj)
     {
         obj.ClearSlot();
+    }
+}
+
+public class CoolDownItem : Item
+{   
+    public float coolDown;
+
+    public bool canUse;
+
+    protected CoolDownItem()
+    {
+        SetDefault();
+    }
+
+    public virtual void UseEffect()
+    {
+        if (!canUse)
+            return;
+    }
+
+    protected virtual void SetDefault()
+    {
+        coolDown = 0;
+        canUse = true;
+    }
+
+    public void UsedSuccess(QuickSlotUi obj)
+    {
+        canUse = false;
+        obj.CoolDownStart(this);
     }
 }
 
@@ -69,6 +99,10 @@ public interface IWeaponSkill
 public enum ItemType
 {
     Consume,
+    CoolDown,
     Equip,
-    Weapon
+    Weapon,
+
+
+    Count
 }

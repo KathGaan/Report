@@ -30,6 +30,22 @@ public class QuickSlotUi : Slot
         SetSlotImage(-1);
     }
 
+    public void CoolDownStart(CoolDownItem obj)
+    {
+        gameObject.GetComponent<Image>().material = PlayerManager.Instance.GrayShader;
+
+        StartCoroutine(CoolDown(obj));
+    }
+
+    private IEnumerator CoolDown(CoolDownItem obj)
+    {
+        yield return new WaitForSeconds(obj.coolDown);
+
+        obj.canUse = true;
+
+        gameObject.GetComponent<Image>().material = null;
+    }
+
     public override bool Task()
     {
         int i = DragObject.dragGameObject.GetComponent<DragObject>().ItemCode;

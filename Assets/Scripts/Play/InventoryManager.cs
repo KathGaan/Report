@@ -21,6 +21,7 @@ public class InventoryManager : MonoBehaviour
         ItemAddInventory(3, 5);
         ItemAddInventory(4, 6);
         ItemAddInventory(4, 7);
+        ItemAddInventory(5, 8);
     }
 
     public void ItemAddInventory(int code, int slot)
@@ -60,53 +61,45 @@ public class InventoryManager : MonoBehaviour
 
     public void TypeSort()
     {
-        List<DragObject> consume = new List<DragObject>();
-        List<DragObject> equip = new List<DragObject>();
-        List<DragObject> weapon = new List<DragObject>();
+        List<List<DragObject>> sort = new List<List<DragObject>>();
+
+        for (int i = 0; i < (int)ItemType.Count; i++)
+        {
+            sort.Add(new List<DragObject>());
+        }
 
         for (int i = 0; i < slots.Count; i++)
         {
             if (slots[i].transform.childCount <= 0)
                 continue;
 
-            if (ItemManager.Instance.GetItemInfo(slots[i].GetComponentInChildren<DragObject>().ItemCode).type == ItemType.Consume.ToString())
+            for(int j = 0; j < (int)ItemType.Count; j++)
             {
-                consume.Add(slots[i].GetComponentInChildren<DragObject>());
-                continue;
+                if (ItemManager.Instance.GetItemInfo(slots[i].GetComponentInChildren<DragObject>().ItemCode).type == ((ItemType)j).ToString())
+                {
+                    sort[j].Add(slots[i].GetComponentInChildren<DragObject>());
+                    break;
+                }
             }
 
-            if (ItemManager.Instance.GetItemInfo(slots[i].GetComponentInChildren<DragObject>().ItemCode).type == ItemType.Equip.ToString())
-            {
-                equip.Add(slots[i].GetComponentInChildren<DragObject>());
-                continue;
-            }
-
-            if (ItemManager.Instance.GetItemInfo(slots[i].GetComponentInChildren<DragObject>().ItemCode).type == ItemType.Weapon.ToString())
-            {
-                weapon.Add(slots[i].GetComponentInChildren<DragObject>());
-                continue;
-            }
         }
 
-        QuickSort(consume, 0, consume.Count - 1);
-        QuickSort(equip, 0, equip.Count - 1);
-        QuickSort(weapon, 0, weapon.Count - 1);
+        for (int i = 0; i < sort.Count; i++)
+        {
+            if (sort[i].Count <= 1)
+                continue;
+
+            QuickSort(sort[i], 0, sort[i].Count - 1);
+        }
 
         List<DragObject> finish = new List<DragObject>();
 
-        for(int i = 0; i < consume.Count; i++)
+        for (int i = 0; i < sort.Count; i++)
         {
-            finish.Add(consume[i]);
-        }
-
-        for (int i = 0; i < equip.Count; i++)
-        {
-            finish.Add(equip[i]);
-        }
-
-        for (int i = 0; i < weapon.Count; i++)
-        {
-            finish.Add(weapon[i]);
+            for (int j = 0; j < sort[i].Count; j++)
+            {
+                finish.Add(sort[i][j]);
+            }
         }
 
         for (int i = 0; i < finish.Count; i++)
