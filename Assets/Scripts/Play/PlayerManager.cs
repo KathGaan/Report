@@ -26,4 +26,9 @@ public class PlayerManager : MonoSingletonManager<PlayerManager>
     {
         get { return grayShder; }
     }
+
+    public void ChangeLanguage(string language)
+    {
+        DataManager.Instance.Data.Language = language;
+    }
 }

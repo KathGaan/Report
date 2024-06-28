@@ -2,16 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Globalization;
+using System;
+using System.Linq;
+using TMPro;
 
 public class InventoryManager : MonoBehaviour
 {
-    [SerializeField] List<Slot> slots;
+    [SerializeField] Transform slotParent;
+
+    private List<Slot> slots;
 
     [SerializeField] GameObject itemPrefab;
+
+    CultureInfo koreanCulture;
+
+    [SerializeField] TMP_InputField searchField;
 
     private void Start()
     {
         PlayerManager.Instance.Inventory = this;
+
+        koreanCulture = new CultureInfo("ko-KR");
+
+        slots = new List<Slot>();
+
+        for(int i = 0; i < slotParent.childCount; i++)
+        {
+            slots.Capacity = slotParent.childCount;
+
+            slots.Add(slotParent.GetChild(i).GetComponent<Slot>());
+        }
 
         ItemAddInventory(0, 0);
         ItemAddInventory(0, 1);
@@ -36,6 +57,30 @@ public class InventoryManager : MonoBehaviour
     public void OpenInventory()
     {
 
+    }
+
+    public void InputValueChanged()
+    {
+        SearchItem(searchField.text);
+    }
+
+    private void SearchItem(string str)
+    {
+
+        for(int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].transform.childCount <= 0)
+                continue;
+
+            if (!TextManager.Instance.LoadString("ItemLanguage", slots[i].GetComponentInChildren<DragObject>().ItemCode).Contains(str, StringComparison.OrdinalIgnoreCase))
+            {
+                slots[i].GetComponentInChildren<Image>().material = PlayerManager.Instance.GrayShader;
+            }
+            else
+            {
+                slots[i].GetComponentInChildren<Image>().material = null;
+            }
+        }
     }
 
     public void NameSort()
@@ -111,7 +156,7 @@ public class InventoryManager : MonoBehaviour
 
     private string GetName(int itemCode)
     {
-        return ItemManager.Instance.GetItemInfo(itemCode).name;
+        return TextManager.Instance.LoadString("ItemLanguage",itemCode);
     }
 
     private void Swap(List<DragObject> list, int first, int second)
@@ -125,27 +170,25 @@ public class InventoryManager : MonoBehaviour
 
     private bool PartitionCheck(string lower, string higher)
     {
-        lower = lower.ToLower();
-        higher = higher.ToLower();
+        int compareResult = 0;
 
-        int range = lower.Length;
-
-        if (range > higher.Length)
-            range = higher.Length;
-
-        for(int i = 0; i < range; i++)
+        if(DataManager.Instance.Data.Language == "Korean")
         {
-            if(lower[i] < higher[i])
-            {
-                return true;
-            }
-            else if (lower[i] != higher[i])
-            {
-                return false;
-            }
+            compareResult = String.Compare(lower, higher, false, koreanCulture);
+        }
+        else if(DataManager.Instance.Data.Language == "English")
+        {
+            compareResult = String.Compare(lower, higher, false);
         }
 
-        return false;
+        if(compareResult < 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private int Partition(List<DragObject> sort, int left, int right)

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class DragObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler , IPointerEnterHandler
 {
@@ -23,7 +24,9 @@ public class DragObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     {
         startSlot = transform.parent;
 
-        moveTransform = startSlot.GetComponent<Transform>().parent;
+        moveTransform = startSlot.GetComponent<Transform>().parent.parent;
+
+        gameObject.GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.None;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -58,6 +61,6 @@ public class DragObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("아이템 이름 : " + ItemManager.Instance.GetItemInfo(itemCode).name);
+        Debug.Log("아이템 이름 : " + TextManager.Instance.LoadString("ItemLanguage",itemCode));
     }
 }

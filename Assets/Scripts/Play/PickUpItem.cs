@@ -15,22 +15,51 @@ public class PickUpItem : MonoBehaviour
 
     public void AddQuickSlot()
     {
+        int addSlot = -1;
+
         for (int i = 0; i < QuickSlot.slotItems.Count; i++)
         {
             if (QuickSlot.slotItems[i] == null)
             {
-                PlayerManager.Instance.QuickSlotPC.SetQuickSlot(itemCode, i);
-                break;
+                addSlot = i;
+                continue;
             }
 
-            if(i == QuickSlot.slotItems.Count - 1)
+            if (QuickSlot.slotItems[i].code == item.code)
             {
-                Debug.Log("Äü ½½·ÔÀÌ °¡µæ Â÷ ÀÖ½À´Ï´Ù.");
-                return;
+                addSlot = i;
+                break;
             }
         }
 
-        Destroy(gameObject);
+        if (addSlot == -1)
+        {
+            Debug.Log("Äü ½½·ÔÀÌ °¡µæ Â÷ ÀÖ½À´Ï´Ù.");
+            return;
+        }
+
+
+        var obj = ItemManager.Instance.GetItemScript(item.code) as StackConsumeItem;
+
+        if (obj != null)
+        {
+            if(!obj.HoldCheck() && !obj.MaxCheck())
+            {
+                PlayerManager.Instance.QuickSlotPC.SetQuickSlot(itemCode, addSlot);
+                obj.AddHold();
+            }
+            else if(obj.HoldCheck() && !obj.MaxCheck())
+            {
+                obj.AddHold();
+            }
+        }
+        else
+        {
+            PlayerManager.Instance.QuickSlotPC.SetQuickSlot(itemCode, addSlot);
+        }
+
+
+        //Destroy(gameObject);
     }
 
     public void ShowInfo()

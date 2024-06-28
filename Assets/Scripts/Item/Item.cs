@@ -25,6 +25,7 @@ public class ConsumeItem : Item
     public void UsedSuccess(QuickSlotUi obj)
     {
         obj.ClearSlot();
+        usedSuccess = false;
     }
 }
 
@@ -95,6 +96,45 @@ public interface IWeaponSkill
 {
     public void SkillEffect();
 }
+
+public class StackConsumeItem : ConsumeItem
+{
+    protected int maxHold;
+
+    protected int hold = 0;
+
+    public StackConsumeItem()
+    {
+        maxHold = 2;
+    }
+
+    public bool MaxCheck()
+    {
+        if (hold >= maxHold)
+            return true;
+
+        return false;
+    }
+
+    public bool HoldCheck()
+    {
+        if (hold == 0)
+            return false;
+
+        return true;
+    }
+
+    public void AddHold(int value = 1)
+    {
+        hold += value;
+
+        if(hold > maxHold)
+        {
+            hold = maxHold;
+        }
+    }
+}
+
 
 public enum ItemType
 {
