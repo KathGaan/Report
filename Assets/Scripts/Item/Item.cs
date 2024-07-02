@@ -76,6 +76,10 @@ public class EquipItem : Item
 
 public class WeaponItem : Item
 {
+    public readonly int maxAmmo = 4;
+
+    public int currentAmmo;
+
     public virtual void AttackEffect()
     {
         Debug.Log("기본 공격을 했습니다.");
@@ -92,9 +96,9 @@ public interface IItemTrap
     public void TrapEffect();
 }
 
-public interface IWeaponSkill
+public interface IWeaponReload
 {
-    public void SkillEffect();
+    public void ReloadEffect();
 }
 
 public class StackConsumeItem : ConsumeItem
@@ -132,6 +136,11 @@ public class StackConsumeItem : ConsumeItem
         {
             hold = maxHold;
         }
+    }
+
+    public int GetHoldNum()
+    {
+        return hold;
     }
 }
 

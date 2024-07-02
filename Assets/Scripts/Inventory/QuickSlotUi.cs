@@ -7,27 +7,37 @@ public class QuickSlotUi : Slot
 {
     [SerializeField] int slotNum;
 
-    public void SetSlotImage(int code)
+    public void SetSlotInfo(int code)
     {
         if (code < 0)
         {
             gameObject.GetComponent<Image>().sprite = null;
+
+            SetCountText(-1);
             return;
         }
 
         gameObject.GetComponent<Image>().sprite = ResourcesManager.Instance.Load<Sprite>(ItemManager.Instance.GetItemInfo(code).name);
+
+
+        var consume = ItemManager.Instance.GetItemScript(code) as StackConsumeItem;
+
+        if(consume != null)
+        {
+            SetCountText(consume.GetHoldNum());
+        }
     }
 
     public void SetQuickSlot(int code)
     {
         QuickSlot.slotItems[slotNum] = ItemManager.Instance.GetItemScript(code);
-        SetSlotImage(code);
+        SetSlotInfo(code);
     }
 
     public void ClearSlot()
     {
         QuickSlot.slotItems[slotNum] = null;
-        SetSlotImage(-1);
+        SetSlotInfo(-1);
     }
 
     public void CoolDownStart(CoolDownItem obj)

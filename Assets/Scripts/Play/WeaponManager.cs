@@ -27,9 +27,9 @@ public class WeaponManager : MonoBehaviour
         if (PlayManager.weaponScript == null)
             return;
 
-        var function = PlayManager.weaponScript as IWeaponSkill;
+        var function = PlayManager.weaponScript as IWeaponReload;
 
         if (function != null)
-            function.SkillEffect();
+            function.ReloadEffect();
     }
 }

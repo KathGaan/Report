@@ -7,6 +7,7 @@ public class ConcussionGrenade : StackConsumeItem
     public ConcussionGrenade()
     {
         maxHold = 4;
+        hold = 4;
     }
 
     public override void UseEffect()

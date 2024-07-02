@@ -1,10 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Slot : MonoBehaviour, IDropHandler
 {
+    [SerializeField] TextMeshProUGUI countText;
+
+    public void SetCountText(int num)
+    {
+        if (countText == null)
+            return;
+
+        if (num == -1)
+        {
+            countText.text = null;
+            return;
+        }
+
+        countText.text = num.ToString();
+    }
+
     public void OnDrop(PointerEventData eventData)
     {
         if (!Task())

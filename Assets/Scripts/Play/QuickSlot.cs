@@ -12,20 +12,20 @@ public class QuickSlot : MonoBehaviour
 
     [SerializeField] List<QuickSlotUi> quickSlotUis;
 
-    private void Awake()
+    private void Start()
     {
         PlayerManager.Instance.QuickSlotPC = this;
 
-        slotItems = new List<Item>() {null, null, null, null };
+        slotItems = new List<Item>();
+
+        slotItems.Capacity = startItemCode.Count;
 
         for(int i = 0; i < startItemCode.Count; i++)
         {
+            slotItems.Add(null);
             quickSlotUis[i].SetQuickSlot(startItemCode[i]);
         }
-    }
 
-    private void Start()
-    {
         InputManager.Instance.keyDownAction += KeyDownAction;
     }
 
@@ -95,6 +95,15 @@ public class QuickSlot : MonoBehaviour
             if (task != null && task.canUse)
             {
                 task.UsedSuccess(quickSlotUis[i]);
+            }
+        }
+
+        {
+            var task = slotItems[i] as StackConsumeItem;
+
+            if (task != null)
+            {
+                quickSlotUis[i].SetSlotInfo(task.code);
             }
         }
     }
