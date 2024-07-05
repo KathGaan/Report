@@ -12,7 +12,7 @@ public class QuickSlot : MonoBehaviour
 
     [SerializeField] List<QuickSlotUi> quickSlotUis;
 
-    private void Start()
+    private void OnEnable()
     {
         PlayerManager.Instance.QuickSlotPC = this;
 

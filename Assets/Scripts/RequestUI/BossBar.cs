@@ -13,11 +13,15 @@ public class BossBar : HealthBar
 
     private float chainTime = 1.25f;
 
+    private float damagedHealth;
+
     protected override void Start()
     {
         base.Start();
 
-        damagedGuage.fillAmount = Health;
+        damagedHealth = Health;
+
+        damagedGuage.fillAmount = damagedHealth;
     }
 
     public override IEnumerator ChangeHealthGuage(float damage)
@@ -46,12 +50,34 @@ public class BossBar : HealthBar
 
             if (chainTimer <= 0f)
             {
-                damagedGuage.fillAmount = healthGuage.fillAmount;
-                chainStart = false;
+                StartCoroutine(DeleteDamagedGuage());
                 break;
             }
 
             yield return null;
         }
+    }
+
+    private IEnumerator DeleteDamagedGuage()
+    {
+        float timer = 0f;
+
+        while (timer < healthChangeTimer)
+        {
+            timer += Time.deltaTime;
+
+            damagedHealth = Mathf.Lerp(damagedHealth, Health, timer / healthChangeTimer);
+
+            damagedGuage.fillAmount = damagedHealth / maxHealth;
+
+            if (damagedHealth == Health)
+            {
+                break;
+            }
+
+            yield return null;
+        }
+
+        chainStart = false;
     }
 }

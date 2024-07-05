@@ -76,7 +76,7 @@ public class EquipItem : Item
 
 public class WeaponItem : Item
 {
-    public readonly int maxAmmo = 4;
+    public int maxAmmo = 4;
 
     public int currentAmmo;
 

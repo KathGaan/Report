@@ -49,7 +49,19 @@ public class QuickSlotUi : Slot
 
     private IEnumerator CoolDown(CoolDownItem obj)
     {
-        yield return new WaitForSeconds(obj.coolDown);
+        float coolTime = obj.coolDown;
+
+        while (coolTime > 0f)
+        {
+            coolTime -= Time.deltaTime;
+
+            SetCountText((int)coolTime + 1);
+
+            yield return null;
+
+        }
+
+        SetCountText(-1);
 
         obj.canUse = true;
 

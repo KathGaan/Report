@@ -7,20 +7,39 @@ public class WeaponSelect : MonoBehaviour
 {
     private WeaponItem weapon;
 
-    [SerializeField] List<Transform> bullts;
+    [SerializeField] QuickSlotUi slotUI;
+
+    [SerializeField] int WeaponCode;
+
+    [SerializeField] Transform bulletsParent;
+
+    private List<Transform> bullts;
 
     [SerializeField] TextMeshProUGUI bulletLimit;
 
-    private void Start()
+    public void StartSetting()
     {
-        weapon = QuickSlot.slotItems[QuickSlot.slotItems.Count - 1] as WeaponItem;
+        weapon = ItemManager.Instance.GetItemScript(WeaponCode) as WeaponItem;
+
+        bullts = new List<Transform>();
+
+        for(int i = 0; i < bulletsParent.childCount; i++)
+        {
+            bullts.Add(bulletsParent.GetChild(i));
+        }
+
         if(weapon == null)
         {
             Destroy(gameObject);
         }
 
-        SetBulletInfo();
+        SetSlotUI();
 
+        SetBulletInfo();
+    }
+
+    private void OnEnable()
+    {
         InputManager.Instance.keyDownAction += InputKey;
     }
 
@@ -28,6 +47,11 @@ public class WeaponSelect : MonoBehaviour
     {
 
         InputManager.Instance.keyDownAction -= InputKey;
+    }
+
+    public void SetSlotUI()
+    {
+        slotUI.SetSlotInfo(WeaponCode);
     }
 
     public void Shot()
