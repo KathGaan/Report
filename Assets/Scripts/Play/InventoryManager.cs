@@ -27,10 +27,10 @@ public class InventoryManager : MonoBehaviour
 
         slots = new List<Slot>();
 
+        slots.Capacity = slotParent.childCount;
+
         for(int i = 0; i < slotParent.childCount; i++)
         {
-            slots.Capacity = slotParent.childCount;
-
             slots.Add(slotParent.GetChild(i).GetComponent<Slot>());
         }
 
@@ -43,6 +43,7 @@ public class InventoryManager : MonoBehaviour
         ItemAddInventory(4, 6);
         ItemAddInventory(4, 7);
         ItemAddInventory(5, 8);
+        ItemAddInventory(6, 9);
     }
 
     public void ItemAddInventory(int code, int slot)
@@ -74,11 +75,11 @@ public class InventoryManager : MonoBehaviour
 
             if (!TextManager.Instance.LoadString("ItemLanguage", slots[i].GetComponentInChildren<DragObject>().ItemCode).Contains(str, StringComparison.OrdinalIgnoreCase))
             {
-                slots[i].GetComponentInChildren<Image>().material = PlayerManager.Instance.GrayShader;
+                slots[i].transform.GetChild(0).GetComponent<Image>().material = PlayerManager.Instance.GrayShader;
             }
             else
             {
-                slots[i].GetComponentInChildren<Image>().material = null;
+                slots[i].transform.GetChild(0).GetComponent<Image>().material = null;
             }
         }
     }
